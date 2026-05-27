@@ -16,8 +16,8 @@ pip install -r requirements.txt --quiet
 
 # Reiniciar el servicio de systemd
 echo "Reiniciando el motor gunicorn"
-sudo systemctl restart gigamoto.service
+sudo systemctl restart appflask.service
 
 # Verificar que este vivo
 echo "Despliegue completado con exito. El estado actual es:"
-sudo systemctl status gigamoto.service | grep "Active:"
+sudo systemctl status appflask.service | grep "Active:"

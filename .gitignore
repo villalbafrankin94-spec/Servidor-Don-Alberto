@@ -1,1 +1,16 @@
+# Ignorar entornos virtuales
 venv/
+ENV/
+
+# Ignorar caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar bases de datos locales
+*.sqlite3
+
+# Ignorar archivos del sistema
+.DS_Store
+Thumbs.dbvenv/
