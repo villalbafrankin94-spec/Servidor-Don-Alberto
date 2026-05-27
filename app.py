@@ -19,12 +19,12 @@ registros = {
     "inventario": [
         {
             "moto": "Yamaha FZ",
-            "placa": "ABC123",
+            "placa": "LAC167",
             "estado": "Cambio de aceite"
         },
         {
             "moto": "Pulsar NS200",
-            "placa": "XYZ789",
+            "placa": "FSV228",
             "estado": "Revision de frenos"
         }
     ]
@@ -52,7 +52,7 @@ def agregar_peritaje():
         peritajes = json.load(f)
 
     nueva_placa = {
-        "placa": data["placa"]
+        "placa": data["placa"].upper(),
     }
 
     peritajes.append(nueva_placa)
@@ -93,6 +93,12 @@ def eliminar_peritaje(placa):
         "message": f"Vehículo {placa} entregado al cliente con éxito",
         "moto_removida": moto_removida
     }), 200
+
+@app.route('/api/inventario')
+def inventario():
+    return jsonify({
+        "mensaje": "Modulo inventario"
+    })
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
