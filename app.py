@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from datetime import datetime
 import json
 import os
+import time
 
 app = Flask(__name__)
 
@@ -14,7 +15,6 @@ if not os.path.exists(ruta_archivo):
 
 # Inventario inventado
 registros = {
-    "servidor": "Servidor Villalba",
     "hora": str(datetime.now()),
     "inventario": [
         {
@@ -93,6 +93,24 @@ def eliminar_peritaje(placa):
         "message": f"Vehículo {placa} entregado al cliente con éxito",
         "moto_removida": moto_removida
     }), 200
+
+# Health Check requerido por la guía
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    sistema_archivos_ok = os.path.exists('/tmp') or os.path.exists('.')
+
+    if sistema_archivos_ok:
+        return jsonify({
+            "status": "healthy",
+            "timestamp": int(time.time()),
+            "environment": "production-cloud",
+            "uptime_check": "passed"
+        }), 200
+    else:
+        return jsonify({
+            "status": "unhealthy",
+            "reason": "Storage unreachable"
+        }), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
